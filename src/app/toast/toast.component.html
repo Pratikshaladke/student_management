@@ -1,0 +1,6 @@
+<div *ngIf="showToast" class="toast-container" [ngClass]="{ 'toast-success': type === 'success', 'toast-error': type === 'error' }">
+    <div class="toast-message">
+      <strong>{{ type === 'success' ? 'Success!' : 'Error!' }}</strong>
+      <p>{{ message }}</p>
+    </div>
+  </div>

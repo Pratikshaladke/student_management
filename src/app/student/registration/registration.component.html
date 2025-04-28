@@ -1,0 +1,191 @@
+<div class="container mt-5">
+  <h3 class="mb-5"> Student Registration Form</h3>
+
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="firstName" class="form-label">First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          class="form-control"
+          formControlName="firstName"
+          placeholder="Enter First Name"
+        />
+        <div
+          *ngIf="
+            registrationForm.get('firstName')?.invalid &&
+            registrationForm.get('firstName')?.touched
+          "
+         class="text-danger"
+        >
+          <span
+            *ngIf="
+              registrationForm.get('firstName')?.errors?.['required'] 
+            "
+            
+          > First Name is required</span><span
+          *ngIf="
+            registrationForm.get('firstName')?.errors?.['minlength'] 
+          "
+         
+        >First Name must be at least 2 characters</span>
+          
+        </div>
+      </div>
+      <div class="col">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          class="form-control"
+          formControlName="lastName"
+          placeholder="Enter Last Name"
+        />
+        <div
+          *ngIf="
+            registrationForm.get('lastName')?.invalid &&
+            registrationForm.get('lastName')?.touched
+          "
+          class="text-danger"
+        >
+        <span
+        *ngIf="
+          registrationForm.get('lastName')?.errors?.['required'] 
+        "
+        
+      > Last Name is required</span><span
+      *ngIf="
+        registrationForm.get('lastName')?.errors?.['minlength'] 
+      "
+     
+    >Last Name must be at least 2 characters</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        formControlName="email"
+        placeholder="Enter Email"
+      />
+
+      <div
+        *ngIf="
+          registrationForm.get('email')?.invalid &&
+          registrationForm.get('email')?.touched
+        "
+        class="text-danger"
+      >
+      <span
+      *ngIf="
+        registrationForm.get('email')?.errors?.['required'] 
+      "
+      
+    > Email is required</span><span
+    *ngIf="
+      registrationForm.get('email')?.errors?.['pattern'] 
+    "
+   
+  >Please enter valid Email Address</span>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="phoneNumber" class="form-label">Phone Number</label>
+      <input
+        type="text"
+        id="phoneNumber"
+        class="form-control"
+        formControlName="phoneNumber"
+        placeholder="Enter 10 digit Phone Number"
+        maxlength="10"
+      />
+      <div
+        *ngIf="
+          registrationForm.get('phoneNumber')?.invalid &&
+          registrationForm.get('phoneNumber')?.touched
+        "
+        class="text-danger"
+      >
+        Phone number must be of 10 digits.
+      </div>
+    </div>
+
+    <!-- Course -->
+    <div class="mb-3">
+      <label>Course</label>
+      <select class="form-select" formControlName="course">
+        <option value="">Select a course</option>
+        <option value="Angular">Angular</option>
+        <option value="React">React</option>
+        <option value="Vue">Vue</option>
+      </select>
+      <div
+        *ngIf="
+          registrationForm.get('course')?.touched &&
+          registrationForm.get('course')?.invalid
+        "
+        class="text-danger"
+      >
+        Course is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Gender</label><br />
+      <div
+        class="form-check form-check-inline"
+        *ngFor="let gender of ['Male', 'Female', 'Other']"
+      >
+        <input
+          type="radio"
+          class="form-check-input"
+          [value]="gender"
+          formControlName="gender"
+        />
+        {{ gender }}
+      </div>
+      <div
+        *ngIf="
+          registrationForm.get('gender')?.touched &&
+          registrationForm.get('gender')?.invalid
+        "
+        class="text-danger"
+      >
+        Gender is required.
+      </div>
+    </div>
+
+    <div class="form-check mb-3">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        formControlName="termsCondition"
+      />
+      <label class="form-check-label">Accept Terms and Conditions</label>
+      <div
+        *ngIf="
+          registrationForm.get('termsCondition')?.touched &&
+          registrationForm.get('termsCondition')?.invalid
+        "
+        class="text-danger"
+      >
+        You must accept the terms.
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!registrationForm.valid"
+    >
+      Register</button
+    >&nbsp;
+  </form>
+</div>
+<app-toast *ngIf="showToast" [message]="toastMessage" [type]="toastType"></app-toast>
